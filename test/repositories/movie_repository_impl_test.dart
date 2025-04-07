@@ -15,15 +15,15 @@ import 'movie_repository_impl_test.mocks.dart';
 @GenerateMocks([MovieRemoteDataSource, MovieLocalDataSource])
 void main() {
   late MockMovieRemoteDataSource mockRemoteDataSource;
-  late MockMovieLocalDataSource mockMovieLocalDataSource;
+  late MockMovieLocalDataSource mockLocalDataSource;
   late MovieRepositoryImpl repository;
 
   setUp(() {
     mockRemoteDataSource = MockMovieRemoteDataSource();
-    mockMovieLocalDataSource = MockMovieLocalDataSource();
+    mockLocalDataSource = MockMovieLocalDataSource();
     repository = MovieRepositoryImpl(
       remoteDataSource: mockRemoteDataSource,
-      localDataSource: mockMovieLocalDataSource,
+      localDataSource: mockLocalDataSource,
     );
   });
 
@@ -36,21 +36,18 @@ void main() {
         poster: 'N/A',
       ),
     ];
-    final tMovies = [
-      const Movie(
-        title: 'Inception',
-        year: '2010',
-        imdbID: 'tt1375666',
-        poster: 'N/A',
-      ),
-    ];
 
     test(
         'should return movie list when the call to remote data source is successful',
         () async {
       // Arrange
-      when(mockRemoteDataSource.searchMovies(any))
-          .thenAnswer((_) async => tMovieModels);
+      when(mockRemoteDataSource.searchMovies(any)).thenAnswer(
+        (_) async => tMovieModels,
+      );
+
+      when(mockLocalDataSource.getFavoriteMovieIds()).thenAnswer(
+        (_) async => [],
+      );
 
       final expectedMovies = [
         const Movie(

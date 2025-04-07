@@ -72,19 +72,7 @@ void main() {
   });
 
   group('fetchMovieDetails', () {
-    final tMovieId = 'tt1375666';
-    final tMovieDetails = MovieDetailsModel(
-      imdbID: tMovieId,
-      title: 'Inception',
-      year: '2010',
-      director: 'Christopher Nolan',
-      actors: 'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page',
-      plot:
-          'A thief steals corporate secrets through dream-sharing technology.',
-      runtime: '148 min',
-      genre: 'Action, Adventure, Sci-Fi',
-      poster: 'N/A',
-    );
+    const tMovieId = 'tt1375666';
 
     test('should perform a GET request and return a MovieDetailsModel',
         () async {
@@ -106,7 +94,7 @@ void main() {
             200),
       );
 
-      final expectedModel = MovieDetailsModel(
+      const expectedModel = MovieDetailsModel(
         imdbID: tMovieId,
         title: 'Inception',
         year: '2010',
