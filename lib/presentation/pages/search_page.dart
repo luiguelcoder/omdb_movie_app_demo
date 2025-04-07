@@ -75,7 +75,9 @@ class SearchPage extends StatelessWidget {
                                 child: DetailsPage(movieId: movie.imdbID),
                               ),
                             ),
-                          );
+                          ).then((_) {
+                            _searchController.clear();
+                          });
                         },
                       );
                     },
