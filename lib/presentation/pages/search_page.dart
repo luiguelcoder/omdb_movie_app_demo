@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/movie_bloc.dart';
-import '../bloc/movie_event.dart';
-import '../bloc/movie_state.dart';
+import '../blocs/movie_bloc/movie_bloc.dart';
+import '../blocs/movie_bloc/movie_event.dart';
+import '../blocs/movie_bloc/movie_state.dart';
 import 'details_page.dart';
 
 /// Page for searching movies.
@@ -11,11 +11,13 @@ import 'details_page.dart';
 class SearchPage extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
+  SearchPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Movies'),
+        title: const Text('Search Movies'),
       ),
       body: Column(
         children: [
@@ -26,9 +28,9 @@ class SearchPage extends StatelessWidget {
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Search for a movie',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {
                     context
                         .read<MovieBloc>()
@@ -47,7 +49,7 @@ class SearchPage extends StatelessWidget {
             child: BlocBuilder<MovieBloc, MovieState>(
               builder: (context, state) {
                 if (state is MovieLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (state is MoviesLoaded) {
                   return ListView.builder(
                     itemCount: state.movies.length,
@@ -60,7 +62,7 @@ class SearchPage extends StatelessWidget {
                           height: 50,
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) =>
-                              Icon(Icons.broken_image),
+                              const Icon(Icons.broken_image),
                         ),
                         title: Text(movie.title),
                         subtitle: Text(movie.year),
@@ -82,12 +84,13 @@ class SearchPage extends StatelessWidget {
                   return Center(
                     child: Text(
                       state.message,
-                      style: TextStyle(color: Colors.red, fontSize: 16),
+                      style: const TextStyle(color: Colors.red, fontSize: 16),
                     ),
                   );
                 } else {
-                  return Center(
-                      child: Text('Search for movies to display here.'));
+                  return const Center(
+                    child: Text('Search for movies to display here.'),
+                  );
                 }
               },
             ),

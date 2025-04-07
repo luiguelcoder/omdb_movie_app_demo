@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../domain/entities/movie.dart';
-import '../../domain/entities/movie_details.dart';
+import '../../../domain/entities/movie.dart';
+import '../../../domain/entities/movie_details.dart';
 
 /// Base class for all states in the MovieBloc.
 /// Extends `Equatable` to allow for efficient state comparison and re-rendering

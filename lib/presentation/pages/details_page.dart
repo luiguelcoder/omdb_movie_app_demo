@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/movie_bloc.dart';
-import '../bloc/movie_event.dart';
-import '../bloc/movie_state.dart';
+import '../blocs/movie_bloc/movie_bloc.dart';
+import '../blocs/movie_bloc/movie_event.dart';
+import '../blocs/movie_bloc/movie_state.dart';
 
 /// Page displaying detailed information about a selected movie.
 class DetailsPage extends StatelessWidget {

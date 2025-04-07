@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/usecases/get_movie_details.dart';
-import '../../domain/usecases/search_movies.dart';
+import '../../../domain/usecases/get_movie_details.dart';
+import '../../../domain/usecases/search_movies.dart';
 import 'movie_event.dart';
 import 'movie_state.dart';
 
