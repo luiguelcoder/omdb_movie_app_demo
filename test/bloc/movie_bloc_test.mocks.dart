@@ -12,7 +12,10 @@ import 'package:omdb_movie_app/domain/entities/movie.dart' as _i7;
 import 'package:omdb_movie_app/domain/entities/movie_details.dart' as _i9;
 import 'package:omdb_movie_app/domain/repositories/movie_repository.dart'
     as _i2;
+import 'package:omdb_movie_app/domain/usecases/add_favorite_movie.dart' as _i10;
 import 'package:omdb_movie_app/domain/usecases/get_movie_details.dart' as _i8;
+import 'package:omdb_movie_app/domain/usecases/remove_favorite_movie.dart'
+    as _i11;
 import 'package:omdb_movie_app/domain/usecases/search_movies.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -118,4 +121,76 @@ class MockGetMovieDetails extends _i1.Mock implements _i8.GetMovieDetails {
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, _i9.MovieDetails>>);
+}
+
+/// A class which mocks [AddFavoriteMovie].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAddFavoriteMovie extends _i1.Mock implements _i10.AddFavoriteMovie {
+  MockAddFavoriteMovie() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.MovieRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeMovieRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.MovieRepository);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, bool>> call(
+          _i9.MovieDetails? movieDetails) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [movieDetails],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
+            _FakeEither_1<_i6.Failure, bool>(
+          this,
+          Invocation.method(
+            #call,
+            [movieDetails],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, bool>>);
+}
+
+/// A class which mocks [RemoveFavoriteMovie].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRemoveFavoriteMovie extends _i1.Mock
+    implements _i11.RemoveFavoriteMovie {
+  MockRemoveFavoriteMovie() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.MovieRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeMovieRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.MovieRepository);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, bool>> call(String? movieId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [movieId],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
+            _FakeEither_1<_i6.Failure, bool>(
+          this,
+          Invocation.method(
+            #call,
+            [movieId],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, bool>>);
 }
