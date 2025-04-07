@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:omdb_movie_app/data/datasources/auth_local_data_source.dart';
 import 'package:omdb_movie_app/data/repositories/auth_repository_impl.dart';
 import 'package:omdb_movie_app/domain/usecases/add_favorite_movie.dart';
@@ -41,13 +40,8 @@ class MyApp extends StatelessWidget {
     // - Initialize an HTTP client to handle API requests.
     final http.Client client = http.Client();
 
-    // - Create an instance of FlutterSecureStorage for secure data storage.
-    const flutterSecureStorage = FlutterSecureStorage();
-
     // - Create an instance of the local data source, which handles user authentication.
-    final authLocalDataSource = AuthLocalDataSourceImpl(
-      secureStorage: flutterSecureStorage,
-    );
+    const authLocalDataSource = AuthLocalDataSourceImpl();
 
     // - Create an instance of the remote data source, which interacts with the OMDb API.
     final movieRemoteDataSource = MovieRemoteDataSourceImpl(client: client);
