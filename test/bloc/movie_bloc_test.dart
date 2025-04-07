@@ -8,9 +8,9 @@ import 'package:omdb_movie_app/domain/entities/movie.dart';
 import 'package:omdb_movie_app/domain/entities/movie_details.dart';
 import 'package:omdb_movie_app/domain/usecases/get_movie_details.dart';
 import 'package:omdb_movie_app/domain/usecases/search_movies.dart';
-import 'package:omdb_movie_app/presentation/bloc/movie_bloc.dart';
-import 'package:omdb_movie_app/presentation/bloc/movie_event.dart';
-import 'package:omdb_movie_app/presentation/bloc/movie_state.dart';
+import 'package:omdb_movie_app/presentation/blocs/movie_bloc/movie_bloc.dart';
+import 'package:omdb_movie_app/presentation/blocs/movie_bloc/movie_event.dart';
+import 'package:omdb_movie_app/presentation/blocs/movie_bloc/movie_state.dart';
 
 import 'movie_bloc_test.mocks.dart';
 
