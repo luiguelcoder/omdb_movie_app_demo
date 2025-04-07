@@ -22,15 +22,7 @@ void main() {
   });
 
   group('searchMovies', () {
-    final tQuery = 'Inception';
-    final tMovieModels = [
-      MovieModel(
-        title: 'Inception',
-        year: '2010',
-        imdbID: 'tt1375666',
-        poster: 'N/A',
-      )
-    ];
+    const tQuery = 'Inception';
 
     test('should perform a GET request and return a list of MovieModels',
         () async {
@@ -51,15 +43,16 @@ void main() {
       );
 
       final expectedModels = [
-        MovieModel(
-            title: 'Inception',
-            year: '2010',
-            imdbID: 'tt1375666',
-            poster: 'N/A'),
+        const MovieModel(
+          title: 'Inception',
+          year: '2010',
+          imdbID: 'tt1375666',
+          poster: 'N/A',
+        ),
       ];
 
       // Act
-      final result = await dataSource.searchMovies('Inception');
+      final result = await dataSource.searchMovies(tQuery);
 
       // Assert
       expect(result, equals(expectedModels));
@@ -81,6 +74,7 @@ void main() {
   group('fetchMovieDetails', () {
     final tMovieId = 'tt1375666';
     final tMovieDetails = MovieDetailsModel(
+      imdbID: tMovieId,
       title: 'Inception',
       year: '2010',
       director: 'Christopher Nolan',
@@ -89,6 +83,7 @@ void main() {
           'A thief steals corporate secrets through dream-sharing technology.',
       runtime: '148 min',
       genre: 'Action, Adventure, Sci-Fi',
+      poster: 'N/A',
     );
 
     test('should perform a GET request and return a MovieDetailsModel',
@@ -97,6 +92,7 @@ void main() {
       when(mockHttpClient.get(any)).thenAnswer(
         (_) async => http.Response(
             jsonEncode({
+              'imdbID': tMovieId,
               'Title': 'Inception',
               'Year': '2010',
               'Director': 'Christopher Nolan',
@@ -105,11 +101,13 @@ void main() {
                   'A thief steals corporate secrets through dream-sharing technology.',
               'Runtime': '148 min',
               'Genre': 'Action, Adventure, Sci-Fi',
+              'Poster': 'N/A',
             }),
             200),
       );
 
       final expectedModel = MovieDetailsModel(
+        imdbID: tMovieId,
         title: 'Inception',
         year: '2010',
         director: 'Christopher Nolan',
@@ -118,10 +116,11 @@ void main() {
             'A thief steals corporate secrets through dream-sharing technology.',
         runtime: '148 min',
         genre: 'Action, Adventure, Sci-Fi',
+        poster: 'N/A',
       );
 
       // Act
-      final result = await dataSource.fetchMovieDetails('tt1375666');
+      final result = await dataSource.fetchMovieDetails(tMovieId);
 
       // Assert
       expect(result, equals(expectedModel));

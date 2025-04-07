@@ -4,6 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:omdb_movie_app/core/error/exceptions.dart';
 import 'package:omdb_movie_app/core/error/failures.dart';
+import 'package:omdb_movie_app/data/datasources/movie_local_data_source.dart';
 import 'package:omdb_movie_app/data/datasources/movie_remote_data_source.dart';
 import 'package:omdb_movie_app/data/models/movie_model.dart';
 import 'package:omdb_movie_app/data/repositories/movie_repository_impl.dart';
@@ -11,24 +12,37 @@ import 'package:omdb_movie_app/domain/entities/movie.dart';
 
 import 'movie_repository_impl_test.mocks.dart';
 
-@GenerateMocks([MovieRemoteDataSource])
+@GenerateMocks([MovieRemoteDataSource, MovieLocalDataSource])
 void main() {
   late MockMovieRemoteDataSource mockRemoteDataSource;
+  late MockMovieLocalDataSource mockMovieLocalDataSource;
   late MovieRepositoryImpl repository;
 
   setUp(() {
     mockRemoteDataSource = MockMovieRemoteDataSource();
-    repository = MovieRepositoryImpl(remoteDataSource: mockRemoteDataSource);
+    mockMovieLocalDataSource = MockMovieLocalDataSource();
+    repository = MovieRepositoryImpl(
+      remoteDataSource: mockRemoteDataSource,
+      localDataSource: mockMovieLocalDataSource,
+    );
   });
 
   group('searchMovies', () {
     final tMovieModels = [
-      MovieModel(
-          title: 'Inception', year: '2010', imdbID: 'tt1375666', poster: 'N/A'),
+      const MovieModel(
+        title: 'Inception',
+        year: '2010',
+        imdbID: 'tt1375666',
+        poster: 'N/A',
+      ),
     ];
     final tMovies = [
-      Movie(
-          title: 'Inception', year: '2010', imdbID: 'tt1375666', poster: 'N/A'),
+      const Movie(
+        title: 'Inception',
+        year: '2010',
+        imdbID: 'tt1375666',
+        poster: 'N/A',
+      ),
     ];
 
     test(
@@ -39,11 +53,12 @@ void main() {
           .thenAnswer((_) async => tMovieModels);
 
       final expectedMovies = [
-        Movie(
-            title: 'Inception',
-            year: '2010',
-            imdbID: 'tt1375666',
-            poster: 'N/A'),
+        const Movie(
+          title: 'Inception',
+          year: '2010',
+          imdbID: 'tt1375666',
+          poster: 'N/A',
+        ),
       ];
 
       // Act

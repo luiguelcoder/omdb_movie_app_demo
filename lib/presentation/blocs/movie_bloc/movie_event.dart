@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:omdb_movie_app/domain/entities/movie_details.dart';
 
 /// Base class for all movie-related events.
 /// Extends the `Equatable` package for easy comparison of event instances.
@@ -38,4 +39,34 @@ class GetMovieDetailsEvent extends MovieEvent {
   /// This ensures that events with the same movie ID are considered equal.
   @override
   List<Object?> get props => [movieId];
+}
+
+/// Event triggered when the user selects a movie to add it to their favorites.
+/// This event contains the selected movie.
+class AddFavoriteMovieDetailsEvent extends MovieEvent {
+  // The movie details of the selected movie.
+  final MovieDetails movieDetails;
+
+  /// Constructor to initialize the `AddFavoriteMovieDetailsEvent` with the movie details.
+  AddFavoriteMovieDetailsEvent(this.movieDetails);
+
+  /// Override the `props` property to include the `movieDetails` field.
+  /// This ensures that events with the same movie details are considered equal.
+  @override
+  List<Object?> get props => [movieDetails];
+}
+
+/// Event triggered when the user selects a movie to remove it from their favorites.
+/// This event contains the ID of the selected movie.
+class RemoveFavoriteMovieDetailsEvent extends MovieEvent {
+  // The movie details of the selected movie.
+  final MovieDetails movieDetails;
+
+  /// Constructor to initialize the `RemoveFavoriteMovieDetailsEvent` with the movie details.
+  RemoveFavoriteMovieDetailsEvent(this.movieDetails);
+
+  /// Override the `props` property to include the `movieDetails` field.
+  /// This ensures that events with the same movie ID are considered equal.
+  @override
+  List<Object?> get props => [movieDetails];
 }
