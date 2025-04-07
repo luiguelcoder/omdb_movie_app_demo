@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:omdb_movie_app/domain/usecases/add_favorite_movie.dart';
+import 'package:omdb_movie_app/domain/usecases/remove_favorite_movie.dart';
 
 import '../../../domain/usecases/get_movie_details.dart';
 import '../../../domain/usecases/search_movies.dart';
@@ -14,10 +16,20 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   // Use case for fetching detailed information about a specific movie.
   final GetMovieDetails getMovieDetails;
 
+  // Use case for adding a movie to the favorites list.
+  final AddFavoriteMovie addFavoriteMovie;
+
+  // Use case for removing a movie from the favorites list.
+  final RemoveFavoriteMovie removeFavoriteMovie;
+
   /// Constructor for initializing the `MovieBloc` with required dependencies.
   /// The `super` call sets the initial state to `MovieInitial`.
-  MovieBloc({required this.searchMovies, required this.getMovieDetails})
-      : super(MovieInitial()) {
+  MovieBloc({
+    required this.searchMovies,
+    required this.getMovieDetails,
+    required this.addFavoriteMovie,
+    required this.removeFavoriteMovie,
+  }) : super(MovieInitial()) {
     // Event handler for `SearchMoviesEvent`.
     // Triggered when the user initiates a search for movies.
     on<SearchMoviesEvent>((event, emit) async {
@@ -51,6 +63,42 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       result.fold(
         (failure) => emit(MovieError('Failed to load movie details.')),
         (details) => emit(MovieDetailsLoaded(details)),
+      );
+    });
+
+    // Event handler for `AddFavoriteMovieDetailsEvent`.
+    // Triggered when the user selects a movie to add it to their favorites.
+    on<AddFavoriteMovieDetailsEvent>((event, emit) async {
+      // Execute the `addFavoriteMovie` use case with the selected movie details.
+      final result = await addFavoriteMovie(event.movieDetails);
+
+      // Handle the result using the `fold` method:
+      // - On failure, emit a `MovieError` state with an error message.
+      // - On success, emit a `MovieDetailsLoaded` state with the movie details.
+      // Note: The `isFavorite` property is set to true to indicate the movie is now a favorite.
+      result.fold(
+        (failure) => emit(MovieError('Failed to add movie to favorites.')),
+        (success) => emit(
+          MovieDetailsLoaded(event.movieDetails.copyWith(isFavorite: true)),
+        ),
+      );
+    });
+
+    // Event handler for `RemoveFavoriteMovieDetailsEvent`.
+    // Triggered when the user selects a movie to remove it from their favorites.
+    on<RemoveFavoriteMovieDetailsEvent>((event, emit) async {
+      // Execute the `removeFavoriteMovie` use case with the selected movie ID.
+      final result = await removeFavoriteMovie(event.movieDetails.imdbID);
+
+      // Handle the result using the `fold` method:
+      // - On failure, emit a `MovieError` state with an error message.
+      // - On success, emit a `MovieDetailsLoaded` state with the movie details.
+      // Note: The `isFavorite` property is set to false to indicate the movie is no longer a favorite.
+      result.fold(
+        (failure) => emit(MovieError('Failed to remove movie from favorites.')),
+        (success) => emit(
+          MovieDetailsLoaded(event.movieDetails.copyWith(isFavorite: false)),
+        ),
       );
     });
   }

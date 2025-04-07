@@ -66,6 +66,10 @@ class SearchPage extends StatelessWidget {
                         ),
                         title: Text(movie.title),
                         subtitle: Text(movie.year),
+                        trailing: Icon(
+                          Icons.favorite,
+                          color: movie.isFavorite ? Colors.red : Colors.grey,
+                        ),
                         onTap: () {
                           Navigator.push(
                             context,

@@ -12,4 +12,13 @@ abstract class MovieRepository {
 
   /// Fetches detailed information about a movie by its ID.
   Future<Either<Failure, MovieDetails>> getMovieDetails(String movieId);
+
+  /// Adds a movie to the favorites list.
+  /// Returns the updated movie details.
+  Future<Either<Failure, bool>> addFavoriteMovie(
+    MovieDetails movieDetails,
+  );
+
+  /// Removes a movie from the favorites list by its ID.
+  Future<Either<Failure, bool>> removeFavoriteMovie(String movieId);
 }

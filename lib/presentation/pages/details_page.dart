@@ -41,10 +41,31 @@ class DetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    details.title,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                  Row(
+                    children: [
+                      Text(
+                        details.title,
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          if (details.isFavorite) {
+                            context.read<MovieBloc>().add(
+                                  RemoveFavoriteMovieDetailsEvent(details),
+                                );
+                          } else {
+                            context.read<MovieBloc>().add(
+                                  AddFavoriteMovieDetailsEvent(details),
+                                );
+                          }
+                        },
+                        icon: Icon(
+                          Icons.favorite,
+                          color: details.isFavorite ? Colors.red : Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
                   Text('Year: ${details.year}',
