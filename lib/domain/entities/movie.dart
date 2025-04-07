@@ -8,7 +8,7 @@ class Movie extends Equatable {
   final String imdbID;
   final String poster;
 
-  Movie({
+  const Movie({
     required this.title,
     required this.year,
     required this.imdbID,
