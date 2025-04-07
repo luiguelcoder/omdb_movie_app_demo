@@ -14,15 +14,6 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _submit() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // widget.onSignIn(
-      //   _emailController.text.trim(),
-      //   _passwordController.text.trim(),
-      // );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
